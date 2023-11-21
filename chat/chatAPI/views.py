@@ -2,7 +2,12 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
 from .models import User,Message
-from django.db.models import Q
+from django.db.models import Q,Subquery,OuterRef
+from rest_framework.generics import ListAPIView
+from .serilizers import MessageSerializer
+class MessagesListApiView(ListAPIView):
+      queryset=Message.objects.all()
+      serializer_class= MessageSerializer
 class ChatView(ViewSet):
     
     def get_members(self, request, user_id):
