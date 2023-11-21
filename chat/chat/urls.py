@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from chatAPI.views import ChatView
+from chatAPI.views import ChatView , MessagesListApiView
 
 get_members = ChatView.as_view({
     'get': 'get_members',
+   
 })
-
+all=ChatView.as_view({'list':'all'})
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/chat/user/<int:user_id>/members/', get_members)
+    path('api/chat/user/<int:user_id>/members/', get_members),
+    path('api/chat/messages/', MessagesListApiView.as_view()),
 ]
